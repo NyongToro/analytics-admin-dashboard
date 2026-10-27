@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Analytics & Operations Dashboard</title>
+  <!-- Chart.js CDN for interactive charts -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      background-color: #f4f6f9;
+      color: #333;
+    }
+
+    @media(min-width: 768px) {
+      body {
+        flex-direction: row;
+        height: 100vh;
+      }
+    }
+
+    .sidebar {
+      width: 100%;
+      background-color: #1e293b;
+      color: #fff;
+      padding: 20px;
+    }
+
+    @media(min-width: 768px) {
+      .sidebar {
+        width: 240px;
+        height: 100vh;
+      }
+    }
+
+    .sidebar h2 {
+      margin-bottom: 20px;
+      font-size: 22px;
+      color: #38bdf8;
+    }
+
+    .sidebar ul {
+      list-style: none;
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+    }
+
+    @media(min-width: 768px) {
+      .sidebar ul {
+        flex-direction: column;
+      }
+    }
+
+    .sidebar li {
+      padding: 10px 15px;
+      border-radius: 6px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: 0.3s;
+    }
+
+    .sidebar li:hover, .sidebar li.active {
+      background-color: #334155;
+      color: #38bdf8;
+    }
+
+    .main-content {
+      flex: 1;
+      padding: 20px;
+      overflow-y: auto;
+    }
+
+    header h1 {
+      font-size: 24px;
+      margin-bottom: 5px;
+    }
+
+    header p {
+      color: #64748b;
+      margin-bottom: 20px;
+      font-size: 14px;
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 15px;
+      margin-bottom: 25px;
+    }
+
+    .card {
+      background: #fff;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    }
+
+    .card h3 {
+      font-size: 13px;
+      color: #64748b;
+      margin-bottom: 8px;
+    }
+
+    .card .stat {
+      font-size: 20px;
+      font-weight: bold;
+      color: #0f172a;
+    }
+
+    .chart-container {
+      background: #fff;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="sidebar">
+    <h2>BuiltbyToba</h2>
+    <ul>
+      <li class="active">📊 Overview</li>
+      <li>📁 System Logs</li>
+      <li>⚙️ Settings</li>
+    </ul>
+  </div>
+
+  <div class="main-content">
+    <header>
+      <h1>Operations & Metrics Dashboard</h1>
+      <p>Real-time system stats and performance analytics</p>
+    </header>
+
+    <div class="cards-grid">
+      <div class="card">
+        <h3>Total Users</h3>
+        <p class="stat">1,248</p>
+      </div>
+      <div class="card">
+        <h3>Tasks Automated</h3>
+        <p class="stat">856</p>
+      </div>
+      <div class="card">
+        <h3>Uptime</h3>
+        <p class="stat">99.9%</p>
+      </div>
+      <div class="card">
+        <h3>Active Req</h3>
+        <p class="stat">342</p>
+      </div>
+    </div>
+
+    <div class="chart-container">
+      <canvas id="metricsChart"></canvas>
+    </div>
+  </div>
+
+  <script>
+    const ctx = document.getElementById('metricsChart').getContext('2d');
+
+    new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
+        datasets: [{
+          label: 'Processed Data Requests',
+          data: [65, 78, 90, 81, 112, 130, 155],
+          borderColor: '#38bdf8',
+          backgroundColor: 'rgba(56, 189, 248, 0.1)',
+          borderWidth: 3,
+          fill: true,
+          tension: 0.3
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            display: true,
+            position: 'top'
+          }
+        },
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+  </script>
+
+</body>
+</html>
